@@ -30,7 +30,7 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     project: 'Cursor & Claude Code Agent Skills',
     product: 'AI skill',
     description:
-      'Agent skill for AppDev quarterly planning decks: query Jira for closed past-quarter and open or in-progress future work, group by product and plugin or category, and generate hyperlinked HTML on the Desktop for paste into Google Slides. Covers Q1–Q4 calendar boundaries and all AppDev products — not RHDH-only.',
+      'Agent skill for AppDev quarterly planning decks: query Jira for closed past-quarter and open or in-progress future Stories (no Epics), group by product and plugin or category, and generate hyperlinked HTML on the Desktop for paste into Google Slides. Covers Q1–Q4 calendar boundaries and all AppDev products — not RHDH-only.',
     externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-appdev-quarterly-deck-stories',
     buttonLabel: 'View skill (VPN required)',
     path: '',
