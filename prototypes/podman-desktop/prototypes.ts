@@ -2,6 +2,16 @@ import { Prototype } from '../../launcher/src/prototypes'
 
 export const podmanDesktopPrototypes: Prototype[] = [
   {
+    name: 'Enterprise Support Page',
+    project: 'Enterprise Support Page',
+    product: 'Podman Desktop',
+    description: 'A prototype for a new "Get Started" page on podman-desktop.io that presents both the community path (downloads, docs, tutorials) and enterprise support vendors (Red Hat Desktop) in a two-column layout. Includes a prototype toggle bar to preview how the page scales from 1 vendor to many vendors, following CNCF website guidelines.',
+    externalUrl: 'https://enterprise-support-cd3849.pages.redhat.com/get-started',
+    path: '',
+    status: 'In Progress',
+    lastUpdated: 'Jul 21, 2026',
+  },
+  {
     name: 'Podman Desktop PF Alignment',
     project: 'PatternFly Component Alignment',
     product: 'Podman Desktop',
@@ -45,4 +55,3 @@ export const podmanDesktopPrototypes: Prototype[] = [
     lastUpdated: 'Jul 15, 2026',
   },
 ]
-
