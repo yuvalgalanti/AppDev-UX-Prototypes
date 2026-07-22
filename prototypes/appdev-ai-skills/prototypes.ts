@@ -49,4 +49,16 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     status: 'Active',
     lastUpdated: 'Jul 22, 2026',
   },
+  {
+    name: 'UXD Preflight',
+    project: 'Cursor & Claude Code Agent Skills',
+    product: 'AI skill',
+    description:
+      'Pre-prototype peer skill that pressure-tests feature scope before UI work: suggested workflow diagrams, edge cases, states, components, nav changes, success metrics, and acceptance criteria. Writes a Desktop HTML brief. Pairs with UXD Design Critic after the prototype exists.',
+    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-uxd-preflight',
+    buttonLabel: 'View skill (VPN required)',
+    path: '',
+    status: 'Active',
+    lastUpdated: 'Jul 22, 2026',
+  },
 ]
