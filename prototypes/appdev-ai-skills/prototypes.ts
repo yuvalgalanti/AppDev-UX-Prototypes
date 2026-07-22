@@ -37,4 +37,16 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     status: 'Active',
     lastUpdated: 'Jul 5, 2026',
   },
+  {
+    name: 'UXD Design Critic',
+    project: 'Cursor & Claude Code Agent Skills',
+    product: 'AI skill',
+    description:
+      'Deliberately skeptical peer-review skill for closing UXD prototypes: UX Critic questions, Prototype Finisher pre-demo checklist, and Prototype QA for broken flows. Writes a Working / Not working HTML report to the Desktop. Generalized for UXD across products.',
+    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-uxd-design-critic',
+    buttonLabel: 'View skill (VPN required)',
+    path: '',
+    status: 'Active',
+    lastUpdated: 'Jul 22, 2026',
+  },
 ]
