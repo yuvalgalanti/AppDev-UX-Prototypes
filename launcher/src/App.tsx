@@ -45,6 +45,8 @@ const productColorMap: Record<Product, LabelColor> = {
   'Podman Desktop': 'red',
   'RHCL': 'orangered',
   'DevSpaces': 'grey',
+  'Tekton': 'teal',
+  'OpenShift Pipelines': 'blue',
   'AI skill': 'yellow',
 }
 
@@ -256,10 +258,13 @@ export function App() {
                 <Flex justifyContent={{ default: 'justifyContentSpaceBetween' }} alignItems={{ default: 'alignItemsCenter' }}>
                   <Button
                     variant="secondary"
-                    component="a"
-                    href={proto.externalUrl || proto.path}
-                    target={proto.externalUrl ? '_blank' : undefined}
-                    rel={proto.externalUrl ? 'noopener noreferrer' : undefined}
+                    isDisabled={proto.disabled}
+                    {...(proto.disabled ? {} : {
+                      component: 'a',
+                      href: proto.externalUrl || proto.path,
+                      target: proto.externalUrl ? '_blank' : undefined,
+                      rel: proto.externalUrl ? 'noopener noreferrer' : undefined,
+                    })}
                     icon={<ExternalLinkAltIcon />}
                     iconPosition="end"
                   >

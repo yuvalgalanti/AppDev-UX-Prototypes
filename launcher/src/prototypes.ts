@@ -1,4 +1,6 @@
 import { appDevAiSkillsPrototypes } from '../../prototypes/appdev-ai-skills/prototypes'
+import { konfluxPrototypes } from '../../prototypes/konflux/prototypes'
+import { openshiftPipelinesPrototypes } from '../../prototypes/openshift-pipelines/prototypes'
 import { podmanDesktopPrototypes } from '../../prototypes/podman-desktop/prototypes'
 import { rhdhPrototypes } from '../../prototypes/rhdh/prototypes'
 import { devSpacesPrototypes } from '../../prototypes/dev-spaces/prototypes'
@@ -16,6 +18,7 @@ export type Product =
   | 'RHCL'
   | 'DevSpaces'
   | 'Tekton'
+  | 'OpenShift Pipelines'
   | 'AI skill'
 
 export const allProducts: Product[] = [
@@ -28,6 +31,7 @@ export const allProducts: Product[] = [
   'RHCL',
   'DevSpaces',
   'Tekton',
+  'OpenShift Pipelines',
   'AI skill',
 ]
 
@@ -48,6 +52,7 @@ export interface Prototype {
   externalUrl?: string
   buttonLabel?: string
   tags?: PrototypeTag[]
+  disabled?: boolean
   status: 'Active' | 'In Progress' | 'Planned'
   lastUpdated: string
 }
@@ -75,6 +80,8 @@ export const prototypes: Prototype[] = [
     status: 'Active',
     lastUpdated: 'Jul 5, 2026',
   },
+  ...konfluxPrototypes,
+  ...openshiftPipelinesPrototypes,
   ...tasPrototypes,
   ...tektonPrototypes,
   ...tpaPrototypes,
