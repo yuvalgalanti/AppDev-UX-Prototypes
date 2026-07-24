@@ -2,6 +2,7 @@ import { appDevAiSkillsPrototypes } from '../../prototypes/appdev-ai-skills/prot
 import { podmanDesktopPrototypes } from '../../prototypes/podman-desktop/prototypes'
 import { rhdhPrototypes } from '../../prototypes/rhdh/prototypes'
 import { devSpacesPrototypes } from '../../prototypes/dev-spaces/prototypes'
+import { tasPrototypes } from '../../prototypes/tas/prototypes'
 import { tpaPrototypes } from '../../prototypes/tpa/prototypes'
 
 export type Product =
@@ -71,6 +72,7 @@ export const prototypes: Prototype[] = [
     status: 'Active',
     lastUpdated: 'Jul 5, 2026',
   },
+  ...tasPrototypes,
   ...tpaPrototypes,
   ...rhdhPrototypes,
   ...devSpacesPrototypes,
