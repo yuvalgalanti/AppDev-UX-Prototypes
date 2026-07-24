@@ -3,6 +3,7 @@ import { podmanDesktopPrototypes } from '../../prototypes/podman-desktop/prototy
 import { rhdhPrototypes } from '../../prototypes/rhdh/prototypes'
 import { devSpacesPrototypes } from '../../prototypes/dev-spaces/prototypes'
 import { tasPrototypes } from '../../prototypes/tas/prototypes'
+import { tektonPrototypes } from '../../prototypes/tekton/prototypes'
 import { tpaPrototypes } from '../../prototypes/tpa/prototypes'
 
 export type Product =
@@ -14,6 +15,7 @@ export type Product =
   | 'Podman Desktop'
   | 'RHCL'
   | 'DevSpaces'
+  | 'Tekton'
   | 'AI skill'
 
 export const allProducts: Product[] = [
@@ -25,6 +27,7 @@ export const allProducts: Product[] = [
   'Podman Desktop',
   'RHCL',
   'DevSpaces',
+  'Tekton',
   'AI skill',
 ]
 
@@ -73,6 +76,7 @@ export const prototypes: Prototype[] = [
     lastUpdated: 'Jul 5, 2026',
   },
   ...tasPrototypes,
+  ...tektonPrototypes,
   ...tpaPrototypes,
   ...rhdhPrototypes,
   ...devSpacesPrototypes,
