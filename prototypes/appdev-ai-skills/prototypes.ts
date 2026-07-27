@@ -61,4 +61,16 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     status: 'Active',
     lastUpdated: 'Jul 22, 2026',
   },
+  {
+    name: 'Product — Future Feature Explorer',
+    project: 'Cursor & Claude Code Agent Skills',
+    product: 'AI skill',
+    description:
+      'Release UI/UX ticket audit for any planning board: filter UI-related work, classify design need, resolve linked UX tickets, flag missing UX links, and write a tabbed Desktop HTML report with Beyond this release FYI (candidate labels, Figma/prototypes, Mark as addressed toggles).',
+    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-product-future-feature-explorer',
+    buttonLabel: 'View skill (VPN required)',
+    path: '',
+    status: 'Active',
+    lastUpdated: 'Jul 27, 2026',
+  },
 ]
