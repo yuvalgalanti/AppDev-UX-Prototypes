@@ -156,6 +156,18 @@ export const rhdhPrototypes: Prototype[] = [
     lastUpdated: 'Jul 2, 2026',
   },
   {
+    name: 'Extensions',
+    project: 'Marketplace Extensions Plugin',
+    product: 'RHDH',
+    description:
+      'RHDH Extensions (marketplace) experience for discovering, installing, enabling, disabling, and configuring plugins. Includes the Extensions catalog and installed packages views, plugin detail drawer with actions, YAML configuration edit flow, and RHDH Theme / Backstage BUI prototype scopes on GitLab Pages.',
+    externalUrl: 'https://extensions-e74028.pages.redhat.com/',
+    buttonLabel: 'Launch prototype (VPN required)',
+    path: '',
+    status: 'Active',
+    lastUpdated: 'Aug 6, 2026',
+  },
+  {
     name: 'RHDH Theme',
     project: 'RHDH Platform Shell & Theme',
     product: 'RHDH',
