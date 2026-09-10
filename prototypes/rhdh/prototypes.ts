@@ -229,4 +229,16 @@ export const rhdhPrototypes: Prototype[] = [
     status: 'Active',
     lastUpdated: 'Jun 29, 2026',
   },
+  {
+    name: 'PR Compass',
+    project: 'Pull Request Triage Dashboard',
+    product: 'RHDH',
+    description:
+      'A scan-first pull request dashboard for Red Hat Developer Hub. The MVP brings status-based triage, activity statistics, search, actionable pull request rows, and a detailed summary drawer into the RHDH theme using Backstage UI.',
+    externalUrl: 'https://pr-compass-f94510.pages.redhat.com/',
+    path: '',
+    tags: [{ label: 'RHDH', color: 'purple' }],
+    status: 'Active',
+    lastUpdated: 'Sep 10, 2026',
+  },
 ]
