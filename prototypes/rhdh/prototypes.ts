@@ -184,7 +184,7 @@ export const rhdhPrototypes: Prototype[] = [
     product: 'RHDH',
     description:
       'Standalone agent skill for Cursor and Claude Code for new RHDH designers: Day 1 setup through first published GitLab Pages prototype. Includes environment checklist, workflow decision tree, Week 1 path, mock data playbook, and pre-publish verification.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-rhdh-designer-onboarding',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/blob/main/skills/rhdh-ux-designer/onboarding.md',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     tags: [{ label: 'AI skill', color: 'yellow', icon: 'stars' }],
@@ -197,7 +197,7 @@ export const rhdhPrototypes: Prototype[] = [
     product: 'RHDH',
     description:
       'Agent skill for Cursor and Claude Code for RHDH UI standards: Backstage UI (BUI), RHDH theme and global header, GitLab Pages baseline, prototype scope switcher placement, design review checklist, and Jira workflow guidance.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-rhdh-ux-designer',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/blob/main/skills/rhdh-ux-designer/SKILL.md',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     tags: [{ label: 'AI skill', color: 'yellow', icon: 'stars' }],
@@ -210,7 +210,7 @@ export const rhdhPrototypes: Prototype[] = [
     product: 'RHDH',
     description:
       'Agent skill for Cursor and Claude Code with a reusable PrototypeViewSwitcher component for multi-release RHDH prototypes. Covers release-scoped views, RELEASE-MAPPING, engineering handoff artifacts, and canonical scope bar placement.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-rhdh-prototype-handoff',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/blob/main/skills/rhdh-ux-designer/prototype-handoff.md',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     tags: [{ label: 'AI skill', color: 'yellow', icon: 'stars' }],

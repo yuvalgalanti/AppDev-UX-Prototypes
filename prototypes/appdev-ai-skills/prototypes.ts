@@ -7,7 +7,7 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     product: 'AI skill',
     description:
       'Agent skill for Cursor and Claude Code covering AppDev group Jira conventions across products and programs. Covers Epic and Story templates, component title prefixes, activity types, story points, DTUX backlog defaults, uxd-applied-ai labeling, and integration with UXD Jira standards.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-appdev-jira-workflow',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/tree/main/skills/design-jira-ticket-creation',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     status: 'Active',
@@ -19,7 +19,7 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     product: 'AI skill',
     description:
       'Cursor and Claude Code agent skill for manual AppDev group weekly update entries from UX prototype and design work. Defines title, single-paragraph body with @author, and footer links with VPN labels — invoked only on explicit request, never auto-generated.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-appdev-weekly-update',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/tree/main/skills/uxd-weekly-update',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     status: 'Active',
@@ -31,7 +31,7 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     product: 'AI skill',
     description:
       'Agent skill for AppDev quarterly planning decks: query Jira for closed past-quarter and open or in-progress future work, group by product and plugin or category, and generate hyperlinked HTML on the Desktop for paste into Google Slides. Covers Q1–Q4 calendar boundaries and all AppDev products — not RHDH-only.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-appdev-quarterly-deck-stories',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/tree/main/skills/uxd-quarterly-deck-stories',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     status: 'Active',
@@ -43,7 +43,7 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     product: 'AI skill',
     description:
       'Deliberately skeptical peer-review skill for closing UXD prototypes: UX Critic questions, Prototype Finisher pre-demo checklist, and Prototype QA for broken flows. Writes a Working / Not working HTML report to the Desktop. Generalized for UXD across products.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-uxd-design-critic',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/tree/main/skills/uxd-design-critic',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     status: 'Active',
@@ -55,7 +55,7 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     product: 'AI skill',
     description:
       'Pre-prototype peer skill that pressure-tests feature scope before UI work: suggested workflow diagrams, edge cases, states, components, nav changes, success metrics, and acceptance criteria. Writes a Desktop HTML brief. Pairs with UXD Design Critic after the prototype exists.',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-uxd-preflight',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/tree/main/skills/uxd-preflight',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     status: 'Active',
@@ -67,10 +67,22 @@ export const appDevAiSkillsPrototypes: Prototype[] = [
     product: 'AI skill',
     description:
       'Release UI/UX ticket audit for any planning board: filter UI-related work, classify design need, resolve linked UX tickets, flag missing UX links, and write a tabbed Desktop HTML report with Beyond this release FYI (candidate labels, Figma/prototypes, Mark as addressed toggles).',
-    externalUrl: 'https://gitlab.cee.redhat.com/shirshbe/skill-product-future-feature-explorer',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/tree/main/skills/product-future-feature-explorer',
     buttonLabel: 'View skill (VPN required)',
     path: '',
     status: 'Active',
     lastUpdated: 'Jul 27, 2026',
+  },
+  {
+    name: 'Morn',
+    project: 'Cursor & Claude Code Agent Skills',
+    product: 'AI skill',
+    description:
+      'Prepare a concise morning or post-PTO briefing by aggregating connected GitHub, GitLab, Slack, Google Workspace, calendar, and meeting summary sources. Ranks actionable items and attaches safe, runnable next-step prompts.',
+    externalUrl: 'https://gitlab.cee.redhat.com/uxd/uxd-productivity-skills/-/tree/main/skills/morn',
+    buttonLabel: 'View skill (VPN required)',
+    path: '',
+    status: 'Active',
+    lastUpdated: 'Sep 14, 2026',
   },
 ]
