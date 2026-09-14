@@ -180,7 +180,7 @@ export const rhdhPrototypes: Prototype[] = [
   },
   {
     name: 'RHDH Designer Onboarding',
-    project: 'Cursor & Claude Code Agent Skills',
+    project: 'Agent skill',
     product: 'RHDH',
     description:
       'Standalone agent skill for Cursor and Claude Code for new RHDH designers: Day 1 setup through first published GitLab Pages prototype. Includes environment checklist, workflow decision tree, Week 1 path, mock data playbook, and pre-publish verification.',
@@ -193,7 +193,7 @@ export const rhdhPrototypes: Prototype[] = [
   },
   {
     name: 'RHDH UX Designer',
-    project: 'Cursor & Claude Code Agent Skills',
+    project: 'Agent skill',
     product: 'RHDH',
     description:
       'Agent skill for Cursor and Claude Code for RHDH UI standards: Backstage UI (BUI), RHDH theme and global header, GitLab Pages baseline, prototype scope switcher placement, design review checklist, and Jira workflow guidance.',
@@ -206,7 +206,7 @@ export const rhdhPrototypes: Prototype[] = [
   },
   {
     name: 'RHDH Prototype Handoff',
-    project: 'Cursor & Claude Code Agent Skills',
+    project: 'Agent skill',
     product: 'RHDH',
     description:
       'Agent skill for Cursor and Claude Code with a reusable PrototypeViewSwitcher component for multi-release RHDH prototypes. Covers release-scoped views, RELEASE-MAPPING, engineering handoff artifacts, and canonical scope bar placement.',
