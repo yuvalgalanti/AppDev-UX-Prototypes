@@ -21,7 +21,7 @@ import {
 } from "@app/queries/migration-workflows";
 import { formatPath } from "@app/utils/utils";
 
-import { StartWorkflowRunModal } from "../../../migration-workflows/components/start-workflow-run-modal";
+import { StartMigrationModal } from "../../../migration-workflows/components/start-migration-modal";
 import { RunStatusLabel } from "../../../migration-workflows/workflow-detail/components/run-status-label";
 
 /**
@@ -172,7 +172,7 @@ export const PlanRunsTab: React.FC<{ applicationId: number }> = ({
         </FlexItem>
       )}
 
-      <StartWorkflowRunModal
+      <StartMigrationModal
         isOpen={isStartRunOpen}
         onClose={() => setIsStartRunOpen(false)}
         initialApplicationIds={[applicationId]}

@@ -188,7 +188,7 @@ export const useStartWorkflowRunMutation = (
   onError: (err: AxiosError) => void
 ) => {
   const queryClient = useQueryClient();
-  const { isPending, mutate, error } = useMutation({
+  const { isPending, mutate, mutateAsync, error } = useMutation({
     mutationFn: (payload: {
       workflowId: number;
       applications: Ref[];
@@ -201,7 +201,7 @@ export const useStartWorkflowRunMutation = (
     },
     onError: (err: AxiosError) => onError(err),
   });
-  return { mutate, isPending, error };
+  return { mutate, mutateAsync, isPending, error };
 };
 
 export const useApproveStageMutation = (

@@ -93,7 +93,7 @@ import {
   universalComparator,
 } from "@app/utils/utils";
 
-import { StartWorkflowRunModal } from "../../migration-workflows/components/start-workflow-run-modal";
+import { StartMigrationModal } from "../../migration-workflows/components/start-migration-modal";
 import { AnalysisWizard } from "../analysis-wizard/analysis-wizard";
 import { ApplicationFormModal } from "../application-form";
 import { ApplicationIdentityModal } from "../application-identity-form/application-identity-modal";
@@ -145,7 +145,8 @@ export const ApplicationsTable: FC = () => {
     useState<DecoratedApplication | null>(null);
 
   const [isAnalyzeModalOpen, setAnalyzeModalOpen] = useState(false);
-  const [isRunWorkflowModalOpen, setIsRunWorkflowModalOpen] = useState(false);
+  const [isStartMigrationModalOpen, setIsStartMigrationModalOpen] =
+    useState(false);
   const [isActionsOpen, setIsActionsOpen] = useState(false);
   const [retrieveConfigApplications, setRetrieveConfigApplications] = useState<
     DecoratedApplication[] | null
@@ -750,11 +751,11 @@ export const ApplicationsTable: FC = () => {
           </DropdownItem>
         ),
         <DropdownItem
-          key="run-migration-workflow"
+          key="run-migration-plan"
           isDisabled={selectedRows.length < 1}
-          onClick={() => setIsRunWorkflowModalOpen(true)}
+          onClick={() => setIsStartMigrationModalOpen(true)}
         >
-          Run migration workflow
+          Run migration plan
         </DropdownItem>,
       ],
       [
@@ -1346,9 +1347,9 @@ export const ApplicationsTable: FC = () => {
           }}
         />
       )}
-      <StartWorkflowRunModal
-        isOpen={isRunWorkflowModalOpen}
-        onClose={() => setIsRunWorkflowModalOpen(false)}
+      <StartMigrationModal
+        isOpen={isStartMigrationModalOpen}
+        onClose={() => setIsStartMigrationModalOpen(false)}
         initialApplicationIds={selectedRows.map((app) => app.id)}
       />
       <RetrieveConfigWizard

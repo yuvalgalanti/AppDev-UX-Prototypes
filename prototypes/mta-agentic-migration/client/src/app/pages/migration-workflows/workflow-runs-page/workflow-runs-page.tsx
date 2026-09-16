@@ -30,7 +30,7 @@ import {
 } from "@app/queries/migration-workflows";
 import { formatPath } from "@app/utils/utils";
 
-import { StartWorkflowRunModal } from "../components/start-workflow-run-modal";
+import { StartMigrationModal } from "../components/start-migration-modal";
 import { RunStatusLabel } from "../workflow-detail/components/run-status-label";
 
 const WorkflowRunsPage: React.FC = () => {
@@ -187,7 +187,7 @@ const WorkflowRunsPage: React.FC = () => {
         </ConditionalRender>
       </PageSection>
 
-      <StartWorkflowRunModal
+      <StartMigrationModal
         isOpen={isStartRunOpen}
         onClose={() => setIsStartRunOpen(false)}
       />

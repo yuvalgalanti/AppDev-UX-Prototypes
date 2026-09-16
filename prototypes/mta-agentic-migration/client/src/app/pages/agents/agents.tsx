@@ -52,6 +52,7 @@ import { formatPath, getAxiosErrorMessage } from "@app/utils/utils";
 
 import { modelLabel } from "./agent-catalog";
 import { AgentForm } from "./components/agent-form";
+import { TestAgentModal } from "./components/test-agent-modal";
 
 export const Agents: React.FC = () => {
   const { t } = useTranslation();
@@ -70,6 +71,9 @@ export const Agents: React.FC = () => {
 
   const [agentToDelete, setAgentToDelete] = React.useState<Agent>();
   const [skillsModalAgent, setSkillsModalAgent] = React.useState<Agent | null>(
+    null
+  );
+  const [testModalAgent, setTestModalAgent] = React.useState<Agent | null>(
     null
   );
 
@@ -259,6 +263,10 @@ export const Agents: React.FC = () => {
                                 ),
                             },
                             {
+                              title: "Test",
+                              onClick: () => setTestModalAgent(agent),
+                            },
+                            {
                               title: t("actions.edit"),
                               onClick: () => setCreateUpdateModalState(agent),
                             },
@@ -331,6 +339,12 @@ export const Agents: React.FC = () => {
           </Button>
         </ModalFooter>
       </Modal>
+
+      <TestAgentModal
+        agent={testModalAgent}
+        isOpen={!!testModalAgent}
+        onClose={() => setTestModalAgent(null)}
+      />
 
       {agentToDelete && (
         <ConfirmDialog
