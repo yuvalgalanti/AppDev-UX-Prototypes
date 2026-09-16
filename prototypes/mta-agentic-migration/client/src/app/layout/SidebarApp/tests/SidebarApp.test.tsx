@@ -1,0 +1,14 @@
+import { BrowserRouter as Router } from "react-router-dom";
+
+import { render } from "@app/test-config/test-utils";
+
+import { SidebarApp } from "../SidebarApp";
+
+it.skip("Renders without crashing", () => {
+  const wrapper = render(
+    <Router>
+      <SidebarApp />
+    </Router>
+  );
+  expect(wrapper).toMatchSnapshot();
+});

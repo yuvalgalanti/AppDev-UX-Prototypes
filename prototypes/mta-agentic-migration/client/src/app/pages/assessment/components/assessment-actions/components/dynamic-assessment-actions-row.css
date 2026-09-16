@@ -1,0 +1,17 @@
+.continue-button {
+  background-color: var(
+    --pf-t--global--color--status--success--default
+  ) !important;
+  margin-right: 10px;
+}
+
+.retake-button {
+  background-color: var(
+    --pf-t--global--color--status--warning--default
+  ) !important;
+  margin-right: 10px;
+}
+
+.actions-col {
+  vertical-align: middle !important;
+}

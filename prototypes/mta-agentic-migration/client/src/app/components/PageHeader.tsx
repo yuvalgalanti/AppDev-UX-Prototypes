@@ -1,0 +1,51 @@
+import * as React from "react";
+import {
+  Content,
+  Split,
+  SplitItem,
+  Stack,
+  StackItem,
+} from "@patternfly/react-core";
+
+import { BreadCrumbPath } from "./BreadCrumbPath";
+import { HorizontalNav } from "./HorizontalNav";
+
+export interface PageHeaderProps {
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  breadcrumbs: { title: string; path?: string | (() => void) }[];
+  btnActions?: React.ReactNode;
+  navItems?: { title: string; path: string }[];
+}
+
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  description,
+  breadcrumbs,
+  btnActions,
+  navItems,
+}) => {
+  return (
+    <Stack hasGutter>
+      <StackItem>
+        {breadcrumbs.length > 0 && <BreadCrumbPath breadcrumbs={breadcrumbs} />}
+      </StackItem>
+      <StackItem>
+        <Split>
+          <SplitItem isFilled>
+            <Content>
+              <Content component="h1">{title}</Content>
+              {description}
+            </Content>
+          </SplitItem>
+          {btnActions && <SplitItem>{btnActions}</SplitItem>}
+        </Split>
+      </StackItem>
+      {navItems && (
+        <StackItem>
+          <HorizontalNav navItems={navItems} />
+        </StackItem>
+      )}
+    </Stack>
+  );
+};

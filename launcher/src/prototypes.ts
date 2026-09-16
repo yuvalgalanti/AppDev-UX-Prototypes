@@ -68,6 +68,16 @@ export const prototypes: Prototype[] = [
     lastUpdated: 'Apr 21, 2026',
   },
   {
+    name: 'Konveyor / MTA — Agentic Migration',
+    project: 'Migration Toolkit for Applications',
+    product: 'MTA',
+    description:
+      'An agentic-migration extension of the Konveyor Tackle UI: create Agents, build multi-stage Migration Plans, manage Skills/Skill collections and Models, kick off and track Plan Runs with commit-level activity, and drive it all from the application inventory.',
+    path: '/AppDev-UX-Prototypes/mta-agentic-migration/',
+    status: 'Active',
+    lastUpdated: 'Sep 16, 2026',
+  },
+  {
     name: 'MTA for RHDH',
     project: 'MTA Integration in Developer Hub',
     product: 'MTA',

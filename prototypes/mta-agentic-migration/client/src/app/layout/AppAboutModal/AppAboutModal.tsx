@@ -1,0 +1,93 @@
+import * as React from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { AboutModal, Content, ContentVariants } from "@patternfly/react-core";
+
+import { ENV } from "@app/env";
+import { useBranding } from "@app/hooks/useBranding";
+
+export interface AppAboutModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const TRANSPARENT_1x1_GIF =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw== ";
+
+const AboutLink: React.FC<{ href?: string; children?: React.ReactNode }> = ({
+  href,
+  children,
+}) => (
+  <Content href={href} component={ContentVariants.a} target="_blank">
+    {children}
+  </Content>
+);
+
+export const AppAboutModal: React.FC<AppAboutModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
+  const { t } = useTranslation();
+  const { about } = useBranding();
+
+  return (
+    <AboutModal
+      isOpen={isOpen}
+      onClose={onClose}
+      trademark="COPYRIGHT © 2022."
+      brandImageSrc={about.imageSrc ?? TRANSPARENT_1x1_GIF}
+      brandImageAlt="Logo"
+      productName={about.displayName}
+    >
+      <Content>
+        <Content component={ContentVariants.h4}>{t("about.about")}</Content>
+
+        <Content component={ContentVariants.p}>
+          {t("about.introduction", { brandType: about.displayName })}
+        </Content>
+
+        <Content component={ContentVariants.p}>
+          {t("about.description", { brandType: about.displayName })}
+        </Content>
+
+        <Content component={ContentVariants.p}>
+          <Trans
+            i18nKey={"about.bottom1"}
+            values={{ brandType: about.displayName }}
+            components={{
+              Link: <AboutLink href="https://www.konveyor.io/" />,
+            }}
+          />
+        </Content>
+
+        {about.documentationUrl ? (
+          <Content component={ContentVariants.p}>
+            <Trans
+              i18nKey={"about.bottom2"}
+              values={{ brandType: about.displayName }}
+              components={{
+                Link: <AboutLink href={about.documentationUrl} />,
+              }}
+            />
+          </Content>
+        ) : null}
+
+        <Content component={ContentVariants.p}>
+          <Trans
+            i18nKey="about.iconLibrary"
+            components={{
+              Link: <AboutLink />,
+            }}
+          ></Trans>
+        </Content>
+      </Content>
+      <Content className="pf-v6-u-py-xl">
+        <Content>
+          <Content component="dl">
+            <Content component="dt">{t("terms.version")}</Content>
+            <Content component="dd">{ENV.VERSION}</Content>
+          </Content>
+        </Content>
+      </Content>
+    </AboutModal>
+  );
+};

@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "install:all": "cd launcher && npm install && cd ../prototypes/mta && npm install",
+    "install:all": "cd launcher && npm install && cd ../prototypes/mta && npm install && cd ../mta-agentic-migration && npm install",
     "build:launcher": "cd launcher && npm run build",
     "build:mta": "cd prototypes/mta && npm run build",
-    "build": "npm run build:launcher && npm run build:mta && npm run assemble",
-    "assemble": "rm -rf dist && cp -R launcher/dist dist && mkdir -p dist/mta && cp -R prototypes/mta/dist/* dist/mta/"
+    "build:mta-agentic-migration": "cd prototypes/mta-agentic-migration && npm install && npm run build",
+    "build": "npm run build:launcher && npm run build:mta && npm run build:mta-agentic-migration && npm run assemble",
+    "assemble": "rm -rf dist && cp -R launcher/dist dist && mkdir -p dist/mta && cp -R prototypes/mta/dist/* dist/mta/ && mkdir -p dist/mta-agentic-migration && cp -R prototypes/mta-agentic-migration/client/dist/* dist/mta-agentic-migration/"
   }
 }

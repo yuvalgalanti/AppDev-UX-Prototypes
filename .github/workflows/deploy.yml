@@ -10,6 +10,7 @@ on:
       - '404.html'
       - 'assets/**'
       - 'mta/**'
+      - 'mta-agentic-migration/**'
       - '.nojekyll'
   workflow_dispatch:
 
@@ -42,21 +43,27 @@ jobs:
         working-directory: prototypes/mta
         run: npm install && npm run build
 
+      - name: Install and build MTA Agentic Migration prototype
+        working-directory: prototypes/mta-agentic-migration
+        run: npm install && npm run build
+
       - name: Publish static files to branch root
         run: |
           cp launcher/dist/index.html .
           cp launcher/dist/404.html .
-          rm -rf assets mta
+          rm -rf assets mta mta-agentic-migration
           cp -R launcher/dist/assets .
           mkdir -p mta
           cp -R prototypes/mta/dist/* mta/
+          mkdir -p mta-agentic-migration
+          cp -R prototypes/mta-agentic-migration/client/dist/* mta-agentic-migration/
           touch .nojekyll
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html 404.html .nojekyll assets mta
+          git add index.html 404.html .nojekyll assets mta mta-agentic-migration
           if git diff --staged --quiet; then
             echo "No static file changes to publish."
             exit 0

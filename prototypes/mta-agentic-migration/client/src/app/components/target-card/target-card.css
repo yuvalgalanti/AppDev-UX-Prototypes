@@ -1,0 +1,10 @@
+.panel-style {
+  background: none;
+}
+
+/* do NOT change background-color or box-shadow on hover with the TargetCard is selectable */
+.target-card.pf-m-selectable {
+  --pf-v6-c-card--m-selectable--hover--BackgroundColor: var(
+    --pf-v6-c-card--BackgroundColor
+  );
+}
