@@ -1,4 +1,0 @@
-.custom-rules-toolbar-padding-start {
-  /** --pf-v6-c-toolbar--PaddingBlockStart is zero  */
-  padding-top: var(--pf-v6-c-toolbar--PaddingBlockEnd);
-}

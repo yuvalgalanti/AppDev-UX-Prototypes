@@ -1,9 +1,0 @@
-.pf-v6-c-page__drawer {
-  min-height: 100%;
-}
-.pf-v6-c-drawer__body:last-child {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  overflow: auto;
-}
