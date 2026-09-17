@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemastore.org/tsconfig.json",
+
+  "include": ["src/**/*", "config/**/*", "types/**/*"],
+
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "target": "es2023",
+    "lib": ["es2022", "es2023.array", "DOM", "DOM.Iterable"],
+    "typeRoots": ["types", "node_modules/@types", "../node_modules/@types"],
+
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "checkJs": false,
+
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "preserveWatchOutput": true,
+
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@mocks/*": ["src/mocks/*"]
+    }
+  },
+
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs" // node16 == commonjs or es2020 depending on package.json/type
+    }
+  }
+}

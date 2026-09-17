@@ -1,0 +1,457 @@
+import * as React from "react";
+import { useRef } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AxiosError } from "axios";
+import dayjs from "dayjs";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as yup from "yup";
+import {
+  ActionGroup,
+  Button,
+  DatePicker,
+  Form,
+  Grid,
+  GridItem,
+} from "@patternfly/react-core";
+
+import {
+  MigrationWave,
+  New,
+  Stakeholder,
+  StakeholderGroup,
+} from "@app/api/models";
+import { MultiSelect } from "@app/components/FilterToolbar/components/MultiSelect";
+import {
+  HookFormPFGroupController,
+  HookFormPFTextInput,
+} from "@app/components/HookFormPFFields";
+import { NotificationsContext } from "@app/components/NotificationsContext";
+import {
+  useCreateMigrationWaveMutation,
+  useUpdateMigrationWaveMutation,
+} from "@app/queries/migration-waves";
+import { useFetchStakeholderGroups } from "@app/queries/stakeholdergroups";
+import { useFetchStakeholders } from "@app/queries/stakeholders";
+import { matchItemsToRefs } from "@app/utils/model-utils";
+
+interface WaveFormValues {
+  name?: string;
+  startDateStr: string;
+  endDateStr: string;
+  stakeholders: Stakeholder[];
+  stakeholderGroups: StakeholderGroup[];
+}
+
+export interface WaveFormProps {
+  migrationWave?: MigrationWave;
+  onClose: () => void;
+}
+
+export const WaveForm: React.FC<WaveFormProps> = ({
+  migrationWave,
+  onClose,
+}) => {
+  const { t } = useTranslation();
+
+  const { pushNotification } = React.useContext(NotificationsContext);
+
+  const { stakeholders } = useFetchStakeholders();
+  const { stakeholderGroups } = useFetchStakeholderGroups();
+
+  const onCreateMigrationWaveSuccess = (newMigrationWave: MigrationWave) => {
+    pushNotification({
+      title: t("toastr.success.createWhat", {
+        type: t("terms.migrationWave"),
+        what: newMigrationWave.name,
+      }),
+      variant: "success",
+    });
+  };
+
+  const onCreateMigrationWaveError = (error: AxiosError) => {
+    if (error.response?.status === 409)
+      pushNotification({
+        title: t("message.duplicateWave"),
+        variant: "danger",
+      });
+    else
+      pushNotification({
+        title: t("toastr.fail.create", {
+          type: t("terms.migrationWave").toLowerCase(),
+        }),
+        variant: "danger",
+      });
+  };
+
+  const { mutate: createMigrationWave } = useCreateMigrationWaveMutation(
+    onCreateMigrationWaveSuccess,
+    onCreateMigrationWaveError
+  );
+
+  const onUpdateMigrationWaveSuccess = (migrationWave: MigrationWave) => {
+    pushNotification({
+      title: t("toastr.success.saveWhat", {
+        type: t("terms.migrationWave"),
+        what: migrationWave.name,
+      }),
+      variant: "success",
+    });
+  };
+
+  const onUpdateMigrationWaveError = (error: AxiosError) => {
+    if (error.response?.status === 409)
+      pushNotification({
+        title: t("message.duplicateWave"),
+        variant: "danger",
+      });
+    else
+      pushNotification({
+        title: t("toastr.fail.save", {
+          type: t("terms.migrationWave").toLowerCase(),
+        }),
+        variant: "danger",
+      });
+  };
+
+  const { mutate: updateMigrationWave } = useUpdateMigrationWaveMutation(
+    onUpdateMigrationWaveSuccess,
+    onUpdateMigrationWaveError
+  );
+
+  const dateStrFormatValidator = (dateStr: string) =>
+    dayjs(dateStr, "MM/DD/YYYY", true).isValid();
+
+  const validationSchema: yup.SchemaOf<WaveFormValues> = yup.object().shape({
+    name: yup
+      .string()
+      .defined()
+      .test(
+        "min-char-check",
+        "Name is invalid. The name must be between 3 and 120 characters ",
+        (value) => {
+          if (value) {
+            const schema = yup
+              .string()
+              .min(3, t("validation.minLength", { length: 3 }))
+              .max(120, t("validation.maxLength", { length: 120 }));
+            return schema.isValidSync(value);
+          }
+          return true;
+        }
+      ),
+    startDateStr: yup
+      .string()
+      .required(t("validation.required"))
+      .test(
+        "isValidFormat",
+        "Date must be formatted as MM/DD/YYYY",
+        (value) => !!value && dateStrFormatValidator(value)
+      )
+      .test(
+        "noSoonerThanToday",
+        "Start date can be no sooner than today",
+        (value) => !dayjs(value).isBefore(dayjs(), "day")
+      ),
+    endDateStr: yup
+      .string()
+      .required(t("validation.required"))
+      .test(
+        "isValidFormat",
+        "Date must be formatted as MM/DD/YYYY",
+        (value) => !!value && dateStrFormatValidator(value)
+      )
+      .when("startDateStr", (startDateStr, schema: yup.StringSchema) =>
+        schema.test(
+          "afterStartDate",
+          "End date must be after start date",
+          (value) =>
+            !startDateStr || dayjs(value).isAfter(dayjs(startDateStr), "day")
+        )
+      ),
+    stakeholders: yup.array(),
+    stakeholderGroups: yup.array(),
+  });
+
+  const {
+    handleSubmit,
+    formState: { isSubmitting, isValidating, isValid, isDirty },
+    control,
+    watch,
+    trigger,
+  } = useForm<WaveFormValues>({
+    mode: "onChange",
+    defaultValues: {
+      name: migrationWave?.name || "",
+      startDateStr: migrationWave?.startDate
+        ? dayjs(migrationWave.startDate).format("MM/DD/YYYY")
+        : "",
+      endDateStr: migrationWave?.endDate
+        ? dayjs(migrationWave.endDate).format("MM/DD/YYYY")
+        : "",
+      stakeholders: migrationWave?.stakeholders || [],
+      stakeholderGroups: migrationWave?.stakeholderGroups || [],
+    },
+    resolver: yupResolver(validationSchema),
+  });
+
+  const startDateStr = watch("startDateStr");
+  const endDateStr = watch("endDateStr");
+  const startDate = dateStrFormatValidator(startDateStr)
+    ? dayjs(startDateStr).toDate()
+    : null;
+  const endDate = dateStrFormatValidator(endDateStr)
+    ? dayjs(endDateStr).toDate()
+    : null;
+
+  const onSubmit = (formValues: WaveFormValues) => {
+    const stakeholders =
+      stakeholdersToRefs(
+        formValues.stakeholders.map((stakeholder) => stakeholder.name)
+      ) ?? [];
+
+    const stakeholderGroups =
+      stakeholderGroupsToRefs(
+        formValues.stakeholderGroups.map(
+          (stakeholderGroup) => stakeholderGroup.name
+        )
+      ) ?? [];
+
+    const payload: New<MigrationWave> = {
+      applications: migrationWave?.applications || [],
+      name: formValues.name?.trim() || "",
+      startDate: dayjs(formValues.startDateStr).format(),
+      endDate: dayjs(formValues.endDateStr).format(),
+      stakeholders: stakeholders,
+      stakeholderGroups: stakeholderGroups,
+    };
+    if (migrationWave)
+      updateMigrationWave({
+        id: migrationWave.id,
+        ...payload,
+      });
+    else createMigrationWave(payload);
+
+    onClose();
+  };
+
+  const startDateRangeValidator = (date: Date) => {
+    const selectedDate = dayjs(date);
+    const currentDate = dayjs();
+
+    if (selectedDate.isBefore(currentDate, "day")) {
+      return "Start date cannot be in the past.";
+    }
+
+    return "";
+  };
+
+  const endDateRangeValidator = (date: Date) => {
+    const selectedEndDate = dayjs(date);
+    const selectedStartDate = startDate ? dayjs(startDate) : null;
+
+    if (
+      !selectedStartDate ||
+      selectedEndDate.isSameOrBefore(selectedStartDate, "day")
+    ) {
+      return "End date must be at least one day after the start date.";
+    }
+
+    return "";
+  };
+
+  const stakeholdersToRefs = (names: string[] | undefined | null) =>
+    matchItemsToRefs(stakeholders, (i) => i.name, names);
+
+  const stakeholderGroupsToRefs = (names: string[] | undefined | null) =>
+    matchItemsToRefs(stakeholderGroups, (i) => i.name, names);
+
+  const startDateRef = useRef<HTMLDivElement | null>(null);
+  const endDateRef = useRef<HTMLDivElement | null>(null);
+
+  return (
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Grid hasGutter>
+        <GridItem span={12}>
+          <HookFormPFTextInput
+            control={control}
+            name="name"
+            label="Name"
+            fieldId="name"
+          />
+        </GridItem>
+        <GridItem span={3}>
+          <div ref={startDateRef}>
+            <HookFormPFGroupController
+              control={control}
+              name="startDateStr"
+              label="Potential Start Date"
+              fieldId="startDateStr"
+              isRequired
+              renderInput={({ field: { value, name, onChange } }) => (
+                <DatePicker
+                  aria-label={name}
+                  onChange={(e, val) => {
+                    onChange(val);
+                    if (endDate) trigger("endDateStr");
+                  }}
+                  placeholder="MM/DD/YYYY"
+                  value={value}
+                  dateFormat={(val) => dayjs(val).format("MM/DD/YYYY")}
+                  dateParse={(val) => dayjs(val).toDate()}
+                  validators={[startDateRangeValidator]}
+                  appendTo={() => startDateRef.current || document.body}
+                />
+              )}
+            />
+          </div>
+        </GridItem>
+        <GridItem
+          span={1}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          to
+        </GridItem>
+        <GridItem span={8}>
+          <div ref={endDateRef}>
+            <HookFormPFGroupController
+              control={control}
+              name="endDateStr"
+              label="Potential End Date"
+              fieldId="endDateStr"
+              isRequired
+              renderInput={({ field: { value, name, onChange } }) => (
+                <DatePicker
+                  isDisabled={!startDate}
+                  aria-label={name}
+                  onChange={(e, val) => onChange(val)}
+                  placeholder="MM/DD/YYYY"
+                  value={value && startDate ? value : ""}
+                  dateFormat={(val) => dayjs(val).format("MM/DD/YYYY")}
+                  dateParse={(val) => dayjs(val).toDate()}
+                  validators={[endDateRangeValidator]}
+                  rangeStart={startDate ? startDate : undefined}
+                  appendTo={() => endDateRef.current || document.body}
+                />
+              )}
+            />
+          </div>
+        </GridItem>
+
+        <GridItem span={12}>
+          <HookFormPFGroupController
+            control={control}
+            name="stakeholders"
+            label={t("terms.stakeholders")}
+            fieldId="stakeholders"
+            renderInput={({ field: { value, name, onChange } }) => (
+              <MultiSelect
+                toggleId="stakeholders-toggle"
+                toggleAriaLabel="Stakeholders select dropdown toggle"
+                aria-label={name}
+                placeholderText={t("composed.selectMany", {
+                  what: t("terms.stakeholders").toLowerCase(),
+                })}
+                values={value.map((s) => String(s.id))}
+                options={stakeholders.map((s) => ({
+                  value: String(s.id),
+                  label: s.name,
+                  optionProps: {
+                    description: s.email,
+                  },
+                }))}
+                hasChips={true}
+                onSelect={(selection) => {
+                  if (!selection) {
+                    return;
+                  }
+                  const selectionId = Number(selection);
+                  const currentValue = value || [];
+                  const e = currentValue.find((f) => f.id === selectionId);
+                  if (e) {
+                    onChange(currentValue.filter((f) => f.id !== selectionId));
+                  } else {
+                    const match = stakeholders.find(
+                      (s) => s.id === selectionId
+                    );
+                    if (match) {
+                      onChange([...currentValue, match]);
+                    }
+                  }
+                }}
+                onClear={() => onChange([])}
+              />
+            )}
+          />
+        </GridItem>
+        <GridItem span={12}>
+          <HookFormPFGroupController
+            control={control}
+            name="stakeholderGroups"
+            label={t("terms.stakeholderGroups")}
+            fieldId="stakeholderGroups"
+            renderInput={({ field: { value, name, onChange } }) => (
+              <MultiSelect
+                toggleId="stakeholder-groups-toggle"
+                toggleAriaLabel="Stakeholder groups select dropdown toggle"
+                aria-label={name}
+                placeholderText={t("composed.selectMany", {
+                  what: t("terms.stakeholderGroups").toLowerCase(),
+                })}
+                values={value.map((sg) => sg.name)}
+                options={stakeholderGroups.map((sg) => ({
+                  value: sg.name,
+                  label: sg.name,
+                }))}
+                hasChips={true}
+                onSelect={(selection) => {
+                  if (!selection) {
+                    return;
+                  }
+                  const currentValue = value || [];
+                  const e = currentValue.find((f) => f.name === selection);
+                  if (e) {
+                    onChange(currentValue.filter((f) => f.name !== selection));
+                  } else {
+                    const match = stakeholderGroups.find(
+                      (sg) => sg.name === selection
+                    );
+                    if (match) {
+                      onChange([...currentValue, match]);
+                    }
+                  }
+                }}
+                onClear={() => onChange([])}
+              />
+            )}
+          />
+        </GridItem>
+      </Grid>
+      <ActionGroup>
+        <Button
+          type="submit"
+          aria-label="submit"
+          id="submit"
+          variant="primary"
+          isDisabled={!isValid || isSubmitting || isValidating || !isDirty}
+        >
+          {!migrationWave ? "Create" : "Save"}
+        </Button>
+        <Button
+          type="button"
+          id="cancel"
+          aria-label="cancel"
+          variant="link"
+          isDisabled={isSubmitting || isValidating}
+          onClick={onClose}
+        >
+          Cancel
+        </Button>
+      </ActionGroup>
+    </Form>
+  );
+};

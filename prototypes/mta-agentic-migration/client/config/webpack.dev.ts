@@ -1,0 +1,132 @@
+import path from "path";
+
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+import CopyPlugin from "copy-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import ReactRefreshTypeScript from "react-refresh-typescript";
+import type { Configuration as WebpackConfiguration } from "webpack";
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import { mergeWithRules } from "webpack-merge";
+
+import {
+  type ClientEnv,
+  brandingAssetPath,
+  brandingStrings,
+} from "@konveyor-ui/common";
+
+import { stylePaths } from "./stylePaths";
+import commonWebpackConfiguration from "./webpack.common";
+
+const pathTo = (relativePath: string) => path.resolve(__dirname, relativePath);
+const faviconPath = path.resolve(brandingAssetPath(), "favicon.ico");
+
+/** Build the client env blob from the current process.env for dev-mode HTML injection. */
+const devClientEnv = (env: ClientEnv = process.env as unknown as ClientEnv) =>
+  btoa(
+    JSON.stringify({
+      NODE_ENV: env.NODE_ENV ?? "development",
+      VERSION: env.VERSION ?? "99.0.0",
+      MOCK: env.MOCK ?? "off",
+      DEVTOOLS: env.DEVTOOLS ?? "off",
+      UI_INGRESS_PROXY_BODY_SIZE: env.UI_INGRESS_PROXY_BODY_SIZE ?? "500m",
+      RWX_SUPPORTED: env.RWX_SUPPORTED ?? "true",
+      AUTH_REQUIRED: env.AUTH_REQUIRED ?? "false",
+      OIDC_CLIENT_ID: env.OIDC_CLIENT_ID ?? "web-ui",
+    } as ClientEnv)
+  );
+
+interface Configuration extends WebpackConfiguration {
+  devServer?: DevServerConfiguration;
+}
+
+const config: Configuration = mergeWithRules({
+  module: {
+    rules: {
+      test: "match",
+      use: {
+        loader: "match",
+        options: "replace",
+      },
+    },
+  },
+})(commonWebpackConfiguration, {
+  mode: "development",
+  devtool: "eval-source-map",
+  output: {
+    filename: "[name].js",
+    chunkFilename: "js/[name].js",
+    assetModuleFilename: "assets/[name][ext]",
+  },
+
+  devServer: {
+    port: 9001,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    hot: true,
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader",
+          options: {
+            transpileOnly: true, // HMR in webpack-dev-server requires transpileOnly
+            getCustomTransformers: () => ({
+              before: [ReactRefreshTypeScript()],
+            }),
+          },
+        },
+      },
+      {
+        test: /\.css$/,
+        include: [...stylePaths],
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
+
+  plugins: [
+    new ReactRefreshWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        mode: "readonly",
+      },
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: pathTo("../public/mockServiceWorker.js"),
+        },
+      ],
+    }),
+
+    // index.html generated at compile time to inject `_env`
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: pathTo("../public/index.html.ejs"),
+      templateParameters: {
+        _env: devClientEnv(),
+        branding: brandingStrings,
+      },
+      favicon: faviconPath,
+      minify: {
+        collapseWhitespace: false,
+        keepClosingSlash: true,
+        minifyJS: true,
+        removeEmptyAttributes: true,
+        removeRedundantAttributes: true,
+      },
+    }),
+  ],
+
+  watchOptions: {
+    // ignore watching everything except @konveyor-ui packages
+    ignored: /node_modules\/(?!@konveyor-ui\/)/,
+  },
+} as Configuration);
+export default config;

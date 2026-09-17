@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemastore.org/tsconfig",
+
+  "include": ["src/**/*"],
+
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "target": "es2023",
+    "lib": ["es2022", "es2023.array"],
+
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "preserveWatchOutput": true,
+
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "removeComments": true,
+
+    "paths": {
+      "@branding/strings.json": ["./src/branding-strings-stub.json"]
+    }
+  }
+}
