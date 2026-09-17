@@ -10,7 +10,6 @@ on:
       - '404.html'
       - 'assets/**'
       - 'mta/**'
-      - 'mta-agentic-migration/**'
       - '.nojekyll'
   workflow_dispatch:
 
