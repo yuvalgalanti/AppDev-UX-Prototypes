@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 28" fill="none" aria-label="Konveyor Tackle">
+  <rect x="2" y="6" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M12 10v8M8 14h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="28" y="20" font-family="Red Hat Text, -apple-system, BlinkMacSystemFont, sans-serif" font-size="17" font-weight="600" fill="currentColor">Konveyor Tackle</text>
+</svg>
