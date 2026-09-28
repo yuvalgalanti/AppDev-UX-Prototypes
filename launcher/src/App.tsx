@@ -90,7 +90,7 @@ function fromSlug(slug: string): Product | 'All' {
 }
 
 function isAiSkill(proto: Prototype): boolean {
-  return proto.product === AI_SKILL_FILTER || proto.project === 'Cursor & Claude Code Agent Skills'
+  return proto.product === AI_SKILL_FILTER || proto.tags?.some((tag) => tag.label === AI_SKILL_FILTER) === true
 }
 
 function matchesProductFilter(proto: Prototype, selected: Product): boolean {
