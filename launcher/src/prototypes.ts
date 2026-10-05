@@ -73,7 +73,8 @@ export const prototypes: Prototype[] = [
     product: 'MTA',
     description:
       'An agentic-migration extension of the Konveyor Tackle UI: create Agents, build multi-stage Migration Plans, manage Skills/Skill collections and Models, kick off and track Plan Runs with commit-level activity, and drive it all from the application inventory.',
-    path: '/AppDev-UX-Prototypes/mta-agentic-migration/',
+    externalUrl: 'https://konveyor-ui-design-mta.apps.rosa.uxdpoc8.zb4j.p3.openshiftapps.com/',
+    path: '',
     status: 'Active',
     lastUpdated: 'Sep 16, 2026',
   },
@@ -83,7 +84,7 @@ export const prototypes: Prototype[] = [
     product: 'MTA',
     description:
       'Migration Toolkit for Applications integrated into Red Hat Developer Hub as dynamic plugins. Includes onboarding, migration analysis, target selection, and deployment asset workflows within the RHDH catalog.',
-    externalUrl: 'https://mta-prototype-dcohenrh-dev.apps.rm3.7wse.p1.openshiftapps.com',
+    externalUrl: 'https://rhdh-mta-design-rhdh.apps.rosa.uxdpoc8.zb4j.p3.openshiftapps.com/',
     buttonLabel: 'Launch prototype',
     path: '',
     tags: [{ label: 'RHDH', color: 'purple' }],
